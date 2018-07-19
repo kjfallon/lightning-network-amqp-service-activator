@@ -10,7 +10,7 @@ The [Lightning Network](https://lightning.network) is a high performance layer t
 
 When executed this application establishes a persistent connection to the [Lightning Network Daemon (lnd)](https://github.com/LightningNetwork/lnd) node specified in this application's [encrypted.properties](src/main/resources/encrypted.properties) file and then starts broadcasting events to  [AMQP](https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol) exchanges.  Events are broadcast when the lnd node receives transactions, invoices, or the node's local topology changes.  Every five seconds a heartbeat message is published to an [AMQP](https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol) exchange that identifies the node and whether the node is responsive or not.  
 
-This application is built with Apache Maven.  To compile and execute this application you need Maven and Java JDK 1.8+.  At runtime you must provide an environment variable LNASA_KEY.  If you use the support I provided for encrypted property file values then LNASA_KEY should contain the key, otherwise set it to a dummy value.  
+This application is built with Apache Maven.  To compile and execute this application you need Maven and Java JDK 1.8+.  At runtime you must provide an environment variable LNASA_KEY.  If you use the support I provided for encrypted property file values then you should set LNASA_KEY to contain the key you used to encrypt the values, otherwise set it to a dummy value.  
 
 To-do
 -----
