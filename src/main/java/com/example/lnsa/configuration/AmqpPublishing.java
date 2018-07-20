@@ -27,7 +27,9 @@ public class AmqpPublishing {
         // We are not using the spring boot default amqp connection properties from application.properties
         // that are provided within the rabbitTemplate passed to this method.  Instead we are creating a new
         // RabbitTemplate using values from the property file that supports encrypted values.
+
         CachingConnectionFactory sandlefordWarren = new CachingConnectionFactory();
+
         sandlefordWarren.setHost(encryptedProperties.getProperty("spring.rabbitmq.host"));
         int amqpPort = Integer.parseInt(encryptedProperties.getProperty("spring.rabbitmq.port"));
         sandlefordWarren.setPort(amqpPort);
