@@ -14,7 +14,7 @@ public class AmqpEventConsumer {
 
     private static final Logger log = LoggerFactory.getLogger(AmqpEventConsumer.class);
 
-    @Resource(name="encryptedProperties")
+    @Resource(name = "encryptedProperties")
     Properties encryptedProperties;
 
     @Autowired
@@ -25,10 +25,10 @@ public class AmqpEventConsumer {
         System.setProperty("amqp.queue.name", encryptedProperties.getProperty("spring.rabbitmq.queue.command"));
     }
 
-    @RabbitListener(queues="${amqp.queue.name}")
+    @RabbitListener(queues = "${amqp.queue.name}")
     public void receive(String message) {
-        log.info("AMQP Received from '" + System.getProperty("amqp.queue.name") + "' message '" + message  + "'");
+        log.info("AMQP Received from '" + System.getProperty("amqp.queue.name") + "' message '" + message + "'");
         lndCommands.receivedCommand(message);
-        }
+    }
 
 }

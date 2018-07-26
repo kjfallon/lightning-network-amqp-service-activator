@@ -21,7 +21,7 @@ public class LndApi {
 
     private static final Logger log = LoggerFactory.getLogger(LndApi.class);
 
-    @Resource(name="encryptedProperties")
+    @Resource(name = "encryptedProperties")
     Properties encryptedProperties;
 
     @Bean

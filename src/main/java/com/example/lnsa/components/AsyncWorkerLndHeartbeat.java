@@ -6,7 +6,6 @@ import org.lightningj.lnd.wrapper.StatusException;
 import org.lightningj.lnd.wrapper.SynchronousLndAPI;
 import org.lightningj.lnd.wrapper.ValidationException;
 import org.lightningj.lnd.wrapper.message.GetInfoResponse;
-import org.lightningj.lnd.wrapper.message.WalletBalanceResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +18,9 @@ import java.util.Properties;
 @Component("asyncWorkerLndHeartbeat")
 public class AsyncWorkerLndHeartbeat implements ScheduledWorker {
 
-	private static final Logger log = LoggerFactory.getLogger(AsyncWorkerLndHeartbeat.class);
+    private static final Logger log = LoggerFactory.getLogger(AsyncWorkerLndHeartbeat.class);
 
-	@Resource(name="encryptedProperties")
+    @Resource(name = "encryptedProperties")
     Properties encryptedProperties;
 
     @Autowired
@@ -33,12 +32,12 @@ public class AsyncWorkerLndHeartbeat implements ScheduledWorker {
     @Autowired
     AmqpEventPublisher amqpPub;
 
-	@Async
-	public void work() {
-		String threadName = Thread.currentThread().getName();
-		log.debug("Scheduled worker " + threadName + " has began working.");
+    @Async
+    public void work() {
+        String threadName = Thread.currentThread().getName();
+        log.debug("Scheduled worker " + threadName + " has began working.");
 
-		GetInfoResponse infoResponse = null;
+        GetInfoResponse infoResponse = null;
         try {
             infoResponse = syncLnd.getInfo();
         } catch (StatusException e) {
@@ -50,12 +49,11 @@ public class AsyncWorkerLndHeartbeat implements ScheduledWorker {
             log.debug("Lnd heartbeat success");
             String nodeAlias = infoResponse.getAlias();
             amqpPub.sendMessage(encryptedProperties.getProperty("spring.rabbitmq.exchange.heartbeat"), "LND_OK " + nodeAlias);
-        }
-        else {
+        } else {
             log.error("Lnd heartbeat failure");
             amqpPub.sendMessage(encryptedProperties.getProperty("spring.rabbitmq.exchange.heartbeat"), "LND_FAIL " + nodeInfo.getAlias());
         }
 
         log.debug("Scheduled worker " + threadName + " has completed work.");
-	}
+    }
 }

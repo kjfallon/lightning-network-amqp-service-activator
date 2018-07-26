@@ -1,11 +1,11 @@
 package com.example.lnsa.configuration;
 
 import com.example.lnsa.entities.MacaroonCallCredential;
+import org.apache.commons.codec.binary.Hex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.apache.commons.codec.binary.Hex;
 import org.springframework.util.ResourceUtils;
 
 import javax.annotation.Resource;
@@ -19,7 +19,7 @@ public class LndMacroon {
 
     private static final Logger log = LoggerFactory.getLogger(EncryptedProps.class);
 
-    @Resource(name="encryptedProperties")
+    @Resource(name = "encryptedProperties")
     Properties encryptedProperties;
 
     @Bean

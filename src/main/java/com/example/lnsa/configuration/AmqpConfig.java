@@ -18,7 +18,7 @@ import java.util.Properties;
 @Configuration
 public class AmqpConfig {
 
-    @Resource(name="encryptedProperties")
+    @Resource(name = "encryptedProperties")
     Properties encryptedProperties;
 
     // specify the properties we want the automatically configured amqp classes to use

@@ -1,12 +1,11 @@
 package com.example.lnsa.configuration;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
-
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.properties.EncryptableProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.security.Security;
@@ -31,8 +30,7 @@ public class EncryptedProps {
         try {
             props.load(this.getClass().getClassLoader().getResourceAsStream("encrypted.properties"));
             log.info("Encrypted properties file loaded.");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Unable to load encrypted.properties file.");
         }
 

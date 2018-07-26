@@ -13,11 +13,6 @@ import java.util.concurrent.CountDownLatch;
 @EnableScheduling
 public class LightningNetworkServiceActivatorApplication {
 
-    @Bean
-    public CountDownLatch closeLatch() {
-        return new CountDownLatch(1);
-    }
-
     public static void main(String[] args) throws InterruptedException {
         ApplicationContext springBootAppContext = SpringApplication.run(LightningNetworkServiceActivatorApplication.class, args);
 
@@ -33,6 +28,11 @@ public class LightningNetworkServiceActivatorApplication {
             }
         });
         closeLatch.await();
+    }
+
+    @Bean
+    public CountDownLatch closeLatch() {
+        return new CountDownLatch(1);
     }
 
 }

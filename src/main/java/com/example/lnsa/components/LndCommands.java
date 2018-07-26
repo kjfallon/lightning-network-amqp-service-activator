@@ -18,7 +18,7 @@ public class LndCommands {
 
     private static final Logger log = LoggerFactory.getLogger(LndCommands.class);
 
-    @Resource(name="encryptedProperties")
+    @Resource(name = "encryptedProperties")
     Properties encryptedProperties;
 
     @Autowired
@@ -32,8 +32,7 @@ public class LndCommands {
 
         Boolean commandSuccess = false;
 
-        switch(rawCommand)
-        {
+        switch (rawCommand) {
             case "feeReport":
                 commandSuccess = commandFeeReport(rawCommand);
                 break;

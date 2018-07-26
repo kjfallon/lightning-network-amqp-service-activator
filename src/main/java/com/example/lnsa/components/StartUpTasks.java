@@ -17,29 +17,27 @@ import org.springframework.stereotype.Component;
 @Component
 public class StartUpTasks {
 
+    // create logger
+    private static final Logger log = LoggerFactory.getLogger(StartUpTasks.class);
     @Autowired
     SynchronousLndAPI syncLnd;
-
     @Autowired
     GetInfoResponse nodeInfo;
 
-    // create logger
-    private static final Logger log = LoggerFactory.getLogger(StartUpTasks.class);
-
     // Use the synchronous API channel to query and display some info about this node
     // As well populate the nodeInfo bean with this node's ID information
-    public void appLaunchTasks(){
+    public void appLaunchTasks() {
         GetInfoResponse infoResponse = null;
         WalletBalanceResponse walletBalanceResponse = null;
         ListPeersResponse peerResponse = null;
         ListChannelsResponse channelsResponse = null;
         try {
             infoResponse = syncLnd.getInfo();
-            BeanUtils.copyProperties(infoResponse,nodeInfo);
+            BeanUtils.copyProperties(infoResponse, nodeInfo);
             walletBalanceResponse = syncLnd.walletBalance();
             peerResponse = syncLnd.listPeers();
             channelsResponse = syncLnd.listChannels(false, false, false, false);
-            } catch (StatusException e) {
+        } catch (StatusException e) {
             e.printStackTrace();
         } catch (ValidationException e) {
             e.printStackTrace();
@@ -50,6 +48,6 @@ public class StartUpTasks {
         log.info("Startup Lnd Peers: " + peerResponse.toJsonAsString(false));
         log.info("Startup Lnd Channels: " + channelsResponse.toJsonAsString(false));
 
-        }
+    }
 
 }

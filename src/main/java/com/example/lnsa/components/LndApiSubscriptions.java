@@ -1,6 +1,7 @@
 package com.example.lnsa.components;
 
 import com.example.lnsa.services.AmqpEventPublisher;
+import io.grpc.stub.StreamObserver;
 import org.lightningj.lnd.wrapper.AsynchronousLndAPI;
 import org.lightningj.lnd.wrapper.StatusException;
 import org.lightningj.lnd.wrapper.ValidationException;
@@ -8,7 +9,6 @@ import org.lightningj.lnd.wrapper.message.GetInfoResponse;
 import org.lightningj.lnd.wrapper.message.GraphTopologyUpdate;
 import org.lightningj.lnd.wrapper.message.Invoice;
 import org.lightningj.lnd.wrapper.message.Transaction;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +18,13 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.Properties;
 
-import io.grpc.stub.StreamObserver;
-
 
 @Component
 public class LndApiSubscriptions {
 
     private static final Logger log = LoggerFactory.getLogger(LndApiSubscriptions.class);
 
-    @Resource(name="encryptedProperties")
+    @Resource(name = "encryptedProperties")
     Properties encryptedProperties;
 
     @Autowired
@@ -40,7 +38,7 @@ public class LndApiSubscriptions {
 
     // Use the asynchronous API channel to subscribe to Lightning Network events
     @PostConstruct
-    public void init(){
+    public void init() {
 
         // Subscribe to ChannelGraph
         log.info("Subscribing to Lightning Network ChannelGraph topology updates.");

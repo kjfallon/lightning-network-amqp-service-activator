@@ -1,10 +1,6 @@
 package com.example.lnsa.entities;
 
-import io.grpc.Attributes;
-import io.grpc.CallCredentials;
-import io.grpc.Metadata;
-import io.grpc.MethodDescriptor;
-import io.grpc.Status;
+import io.grpc.*;
 
 import java.util.concurrent.Executor;
 
@@ -20,10 +16,11 @@ public class MacaroonCallCredential implements CallCredentials {
         this.macaroon = macaroon;
     }
 
-    public void thisUsesUnstableApi() {}
+    public void thisUsesUnstableApi() {
+    }
 
     public void applyRequestMetadata(
-            MethodDescriptor < ? , ? > methodDescriptor,
+            MethodDescriptor<?, ?> methodDescriptor,
             Attributes attributes,
             Executor executor,
             final MetadataApplier metadataApplier
@@ -34,7 +31,7 @@ public class MacaroonCallCredential implements CallCredentials {
             public void run() {
                 try {
                     Metadata headers = new Metadata();
-                    Metadata.Key < String > macaroonKey = Metadata.Key.of("macaroon", Metadata.ASCII_STRING_MARSHALLER);
+                    Metadata.Key<String> macaroonKey = Metadata.Key.of("macaroon", Metadata.ASCII_STRING_MARSHALLER);
                     headers.put(macaroonKey, macaroon);
                     metadataApplier.apply(headers);
                 } catch (Throwable e) {
